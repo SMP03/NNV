@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/NNV.iml" filepath="$PROJECT_DIR$/.idea/NNV.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../TRXarxes Definitiu/.idea/TRXarxesDefinitiu.iml" filepath="$PROJECT_DIR$/../TRXarxes Definitiu/.idea/TRXarxesDefinitiu.iml" />
     </modules>
   </component>
 </project>
