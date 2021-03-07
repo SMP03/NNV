@@ -27,8 +27,7 @@ class ImageBrowser(object):
         # Image subplot
         self.img_subplot = self.figure.add_subplot(1, 2, 1)
         self.img_plot = plt.imshow(self.data[self.data_idx], cmap=color_map)
-        plt.sca(self.img_subplot)
-        plt.axis("off")
+        self.img_subplot.axis("off")
 
         # Text Label
         self.use_labels = use_labels
@@ -130,9 +129,9 @@ class AccuracyGraph(object):
             x_locations = np.arange(0, len(self.accuracy), self.steps * self.multiplier)
             x_labels = np.arange(0, len(self.accuracy), self.steps * self.multiplier) // self.steps
 
-        plt.sca(self.subplot)
-        plt.xticks(x_locations, x_labels)
-        plt.grid()
+        self.subplot.set_xticks(x_locations)
+        self.subplot.set_xticklabels(x_labels)
+        self.subplot.grid()
 
         self.subplot.set(xlabel='Èpoques d\'entrenament',
                          ylabel=f'Precisió (Actual: {round(self.accuracy[-1] * 100)}%)')
@@ -157,11 +156,11 @@ class NetworkStructure(object):
     def update(self):
         self.subplot.clear()
         self.subplot.set_title("Estructura de la xarxa")
-        plt.sca(self.subplot)
+
         for layer in range(len(self.NN.sizes)):
             self.draw_layer(layer, self.NN.sizes[layer])
-        plt.axis('scaled')
-        plt.axis('off')
+        self.subplot.axis('scaled')
+        self.subplot.axis('off')
         self.label = plt.text(0, -20, f"Mida de les capes: {self.NN.sizes}")
         self.canvas.draw()
 
@@ -232,8 +231,7 @@ class WeightBrowser(object):    # Not used in main program
         self.img_subplot = self.figure.add_subplot(1, 1, 1)
         self.img_plot = plt.imshow(self.NN.weights[0][self.data_idx].reshape(28, 28), cmap=color_map)
         self.img_subplot.set_title("Weight Visualizer")
-        plt.sca(self.img_subplot)
-        plt.axis("off")
+        self.img_subplot.axis("off")
 
         # Text Label
         self.label = plt.text(-7, 5, self.data_idx + 1, fontsize=20)
