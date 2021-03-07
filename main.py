@@ -13,6 +13,7 @@ import StartMenu
 # Create the starter window and assign net to myNet
 starter_window = StartMenu.StartWindow()
 myNet = starter_window.net
+data_path = starter_window.database_path
 
 # Main Window
 root = tk.Tk()
@@ -22,7 +23,7 @@ root.title("MNIST Neural Network")              # Window Title
 root.protocol("WM_DELETE_WINDOW", exit)         # Set cross button to end program
 
 # Load training data
-with open("dataready.pkl", "rb") as file:   # TODO: Add way to change database source file
+with open(data_path, "rb") as file:
     data, data_labels, a, c = pck.load(file)
 
 # Number of partitions of each epoch (Used for getting accuracy readings mid-epoch)

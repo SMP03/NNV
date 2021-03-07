@@ -17,6 +17,8 @@ class StartWindow:
 
         self.net = 0    # Placeholder
 
+        self.database_path = None   # Placeholder
+
         self.create_widgets()   # Create widgets
         self.root.mainloop()    # Start loop
 
@@ -28,7 +30,7 @@ class StartWindow:
 
         # Select method parent frame
         self.select_frame = ttk.LabelFrame(self.root, text="Selecciona l'origen de la xarxa:")
-        self.select_frame.grid(row=1, column=0, sticky="WENS", padx=5, pady=5)
+        self.select_frame.grid(row=2, column=0, sticky="WENS", padx=5, pady=5)
 
         # Scratch generation parent frame
         self.scratch_frame = ttk.LabelFrame(self.select_frame, text="Des de zero:")
@@ -57,6 +59,16 @@ class StartWindow:
                                      text="\t\t          Selecciona l'arxiu\t\t\t", command=self.file_check)
         self.file_button.grid(row=0, column=1, columnspan=1, sticky="WENS", padx=5, pady=5)
 
+        # Select database from file parent frame
+        self.data_frame = ttk.LabelFrame(self.root, text="Selecciona dades d'entrenament:")
+        self.data_frame.grid(row=1, column=0, columnspan=2, sticky="WENS", padx=5, pady=5)
+
+        # Button to open file explorer
+        # TODO: had to bodge it to get the center text align
+        self.data_button = tk.Button(self.data_frame,
+                                     text="\t\t          Selecciona l'arxiu\t\t\t", command=self.data_check)
+        self.data_button.grid(row=0, column=1, columnspan=1, sticky="WENS", padx=5, pady=5)
+
     def scratch_check(self):
         """Generate net with layer sizes."""
         input = self.scratch_entry.get()
@@ -80,6 +92,16 @@ class StartWindow:
             self.net = NN.load_net(filename)
             print("Successful Load")
             self.root.destroy()
+        except:
+            print("Failed")
+
+    def data_check(self):
+        """Open file explorer, get file path and return database location"""
+        filename = tk.filedialog.askopenfilename(title="Seleccioni l'arxiu",
+                                                 filetypes=(("pickled files", "*.pkl"), ("all files", "*.*")))
+        try:
+            self.database_path = filename
+            self.data_button.configure(text=str(self.database_path).split("/")[-1])
         except:
             print("Failed")
 
