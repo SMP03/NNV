@@ -5,6 +5,7 @@ import random
 import tkinter as tk
 from sys import exit
 from tkinter import ttk
+from tkinter import filedialog
 
 # Import start window and visual widgets
 import Showcase
@@ -110,24 +111,23 @@ train_frame.grid(row=2, column=0, columnspan=1, rowspan=2, sticky="WENS", padx=5
 epochs_label = tk.Label(master=train_frame, text="Número d'èpoques per entrenar:")
 epochs_label.grid(row=0, column=0, sticky="WENS", padx=5, pady=5)
 
-epochs_entry = tk.Entry(master=train_frame, width=30)
+epochs_entry = tk.Entry(master=train_frame, width=15)
 epochs_entry.grid(row=0, column=1, sticky="WENS", padx=5, pady=5)
 
-train_button = tk.Button(master=train_frame, text="Entrena!", command=lambda: train(process_entry(epochs_entry)))
+train_button = tk.Button(master=train_frame, text="Entrena!", width=20,
+                         command=lambda: train(process_entry(epochs_entry)))
 train_button.grid(row=0, column=3, columnspan=1, sticky="WENS", padx=20, pady=5)
 
 # Save net widgets
-save_frame = ttk.LabelFrame(master=root, text="Desa la xarxa en forma d'arxiu:")
+save_frame = ttk.LabelFrame(master=root, text="Guarda l'estat de la xarxa:")
 save_frame.grid(row=2, column=3, columnspan=1, rowspan=2, sticky="WENS", padx=5, pady=5)
 
 save_label = tk.Label(master=save_frame, text="Nom de l'arxiu:")
 save_label.grid(row=0, column=0, columnspan=1, sticky="WENS", padx=5, pady=5)
 
-filename_entry = tk.Entry(master=save_frame, width=45)
-filename_entry.grid(row=0, column=1, columnspan=1, sticky="WENS", padx=5, pady=5)
-
-save_button = tk.Button(master=save_frame, text="Guarda!", command=lambda: save(filename_entry.get()))
-save_button.grid(row=0, column=2, columnspan=1, sticky="WENS", padx=5, pady=5)
+saveasfile_button = tk.Button(master=save_frame, text="Desa la xarxa en forma d'arxiu", width=50,
+                              command=lambda: save(filedialog.asksaveasfilename(title="Desi l'arxiu")))
+saveasfile_button.grid(row=0, column=1, columnspan=3, sticky="WENS", padx=5, pady=5)
 
 # Start loop
 root.mainloop()
